@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>استبيان القيادة | المستخدمين</title>
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+  <div class="app">
+    <div class="topbar">
+      <div class="brand">
+        <div class="logo">◆</div>
+        <div>
+          <h1>استبيان القيادة</h1>
+          <p>أدخل الاسم ورقم الهاتف، ثم أجب عن الأسئلة لتظهر لك نتيجة ملاءمة القيادة والملف الأنسب.</p>
+        </div>
+      </div>
+      <div class="header-actions">
+        <button class="btn btn-secondary" id="userTabTake">ابدأ الاختبار</button>
+        <button class="btn btn-primary" id="userTabResults">نتيجتي</button>
+      </div>
+    </div>
+
+    <div class="grid">
+      <section class="panel">
+        <div class="inner">
+          <div id="takeTestView">
+            <h2 class="section-title">البيانات الأساسية</h2>
+            <p class="section-sub">اكتب الاسم ورقم الهاتف أولًا، ثم أكمل الإجابات.</p>
+
+            <div class="card form-grid">
+              <div class="field">
+                <label>الاسم</label>
+                <input id="userName" type="text" placeholder="اكتب الاسم" />
+              </div>
+              <div class="field">
+                <label>رقم التليفون</label>
+                <input id="userPhone" type="tel" placeholder="01xxxxxxxxx" />
+              </div>
+            </div>
+
+            <div id="activeFormInfo" class="card"></div>
+            <div id="userQuestions"></div>
+
+            <div class="row">
+              <button class="btn btn-primary" id="submitTest">إرسال النتيجة</button>
+              <button class="btn btn-secondary" id="clearAnswers">مسح الإجابات</button>
+            </div>
+          </div>
+
+          <div id="resultView" class="hidden">
+            <h2 class="section-title">النتيجة النهائية</h2>
+            <p class="section-sub">ستظهر لك النتيجة العامة مع الملف الأقرب لك.</p>
+            <div id="resultArea"></div>
+            <div class="row" style="margin-top:14px">
+              <button class="btn btn-secondary" id="backToTest">رجوع للاختبار</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <aside class="sidebar">
+        <h2>معلومات سريعة</h2>
+        <p>الأسئلة تظهر حسب الفورم المفتوح في الرابط. لا يوجد أي زر للوصول إلى لوحة الأدمن من هذه الصفحة.</p>
+        <div class="stats">
+          <div class="stat">
+            <div class="k">حالة الفورم</div>
+            <div class="v" id="sideStatus">—</div>
+          </div>
+          <div class="stat">
+            <div class="k">عدد الأسئلة</div>
+            <div class="v" id="sideQuestions">0</div>
+          </div>
+          <div class="stat">
+            <div class="k">أفضل ملف</div>
+            <div class="v" id="sideBestFile">—</div>
+          </div>
+          <div class="stat">
+            <div class="k">الملاءمة</div>
+            <div class="v" id="sidePercent">0%</div>
+          </div>
+        </div>
+
+        <div class="notice">
+          <div style="font-weight:800">تنبيه</div>
+          <div class="meta" style="color:#cbd5e1;margin-top:6px">لو فتح الرابط بدون formId سيظهر أول فورم نشط تلقائيًا إن وجد.</div>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <div class="toast" id="toast">تم التنفيذ</div>
+
+  <script type="module" src="./js/user.js"></script>
+</body>
+</html>

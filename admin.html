@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>لوحة الأدمن | منصة تقييم القيادة</title>
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+  <div class="app">
+    <div class="topbar">
+      <div class="brand">
+        <div class="logo">◆</div>
+        <div>
+          <h1>لوحة الأدمن</h1>
+          <p>إنشاء فورمات متعددة، التحكم في تفعيلها، مراجعة النتائج والإحصائيات، ومعاينة صفحة المستخدمين.</p>
+        </div>
+      </div>
+      <div class="header-actions">
+        <button class="btn btn-secondary" id="openUserPage">معاينة صفحة المستخدمين</button>
+        <button class="btn btn-primary" id="previewUser">فتح الفورم النشط</button>
+      </div>
+    </div>
+
+    <div class="grid">
+      <section class="panel">
+        <div class="inner">
+          <div class="tabs">
+            <button class="tab active" id="tab-forms">الفورمات</button>
+            <button class="tab" id="tab-builder">بناء الأسئلة</button>
+            <button class="tab" id="tab-stats">الإحصائيات</button>
+            <button class="tab" id="tab-results">النتائج</button>
+            <button class="tab" id="tab-preview">المعاينة</button>
+          </div>
+
+          <div id="panel-forms">
+            <h2 class="section-title">الفورمات المتاحة</h2>
+            <p class="section-sub">كل فورم مستقل وله رابط خاص. يمكن تشغيله أو إيقافه في أي وقت.</p>
+            <div id="formsList"></div>
+
+            <div class="card" id="selectedFormSummary"></div>
+          </div>
+
+          <div id="panel-builder" class="hidden">
+            <h2 class="section-title">إعداد الفورم النشط</h2>
+            <p class="section-sub">عدّل العنوان والوصف، ثم أضف أسئلة تقييم ملفات صناع الحياة مع درجات مخفية عن المستخدم.</p>
+
+            <div class="card form-grid">
+              <div class="field">
+                <label>اسم الفورم</label>
+                <input id="formTitle" type="text" placeholder="مثال: استبيان قادة الملفات" />
+              </div>
+              <div class="field">
+                <label>وصف الفورم</label>
+                <input id="formDesc" type="text" placeholder="وصف مختصر للفورم" />
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="row" style="justify-content:space-between;align-items:center">
+                <div>
+                  <div class="tag">إضافة / تعديل سؤال</div>
+                  <div class="meta" style="margin-top:8px">عند اختيار "آخر" ستظهر خانة اسم الملف المخصص.</div>
+                </div>
+                <div class="row">
+                  <button class="btn btn-secondary btn-small" id="newFormBtn">فورم جديد</button>
+                  <button class="btn btn-danger btn-small" id="deleteForm">حذف الفورم</button>
+                </div>
+              </div>
+
+              <div class="divider"></div>
+
+              <div class="field">
+                <label>اختر الفورم النشط</label>
+                <select id="formSelector"></select>
+              </div>
+
+              <div class="field" style="margin-top:12px">
+                <label>السؤال</label>
+                <textarea id="qText" placeholder="اكتب السؤال هنا..."></textarea>
+              </div>
+
+              <div class="form-grid" style="margin-top:12px">
+                <div class="field">
+                  <label>نوع السؤال</label>
+                  <select id="qType">
+                    <option value="mcq">اختياري</option>
+                    <option value="tf">صح وغلط</option>
+                  </select>
+                </div>
+                <div class="field">
+                  <label>الملف / التصنيف</label>
+                  <select id="qCategory">
+                    <option>الجذب</option>
+                    <option>المعارض</option>
+                    <option>التنمية</option>
+                    <option>القوافل</option>
+                    <option>الملف الطبي</option>
+                    <option>الأطفال</option>
+                    <option>منسق مركز</option>
+                    <option>التمويل</option>
+                    <option>التقييم والمتابعة</option>
+                    <option>الميديا</option>
+                    <option>الطوارئ</option>
+                    <option value="custom">آخر</option>
+                  </select>
+                  <input id="customCategory" class="hidden" type="text" placeholder="اكتب اسم الملف المخصص" style="margin-top:10px" />
+                </div>
+              </div>
+
+              <div id="mcqEditor" class="card" style="margin-top:12px">
+                <div class="form-grid">
+                  <div class="field"><label>الخيار 1</label><input id="opt1" placeholder="نص الخيار" /></div>
+                  <div class="field"><label>نقاطه</label><input id="score1" type="number" value="0" /></div>
+                  <div class="field"><label>الخيار 2</label><input id="opt2" placeholder="نص الخيار" /></div>
+                  <div class="field"><label>نقاطه</label><input id="score2" type="number" value="0" /></div>
+                  <div class="field"><label>الخيار 3</label><input id="opt3" placeholder="نص الخيار" /></div>
+                  <div class="field"><label>نقاطه</label><input id="score3" type="number" value="0" /></div>
+                  <div class="field"><label>الخيار 4</label><input id="opt4" placeholder="نص الخيار" /></div>
+                  <div class="field"><label>نقاطه</label><input id="score4" type="number" value="0" /></div>
+                </div>
+              </div>
+
+              <div id="tfEditor" class="card hidden" style="margin-top:12px">
+                <div class="form-grid">
+                  <div class="field"><label>إجابة صح</label><input id="tfTrueText" value="صح" /></div>
+                  <div class="field"><label>نقاط صح</label><input id="tfTrueScore" type="number" value="10" /></div>
+                  <div class="field"><label>إجابة غلط</label><input id="tfFalseText" value="غلط" /></div>
+                  <div class="field"><label>نقاط غلط</label><input id="tfFalseScore" type="number" value="0" /></div>
+                </div>
+              </div>
+
+              <div class="row" style="margin-top:12px">
+                <button class="btn btn-primary" id="addQuestion">إضافة السؤال</button>
+                <button class="btn btn-secondary" id="clearQuestion">مسح الحقول</button>
+                <button class="btn btn-secondary" id="saveFormHeader">حفظ الفورم</button>
+                <button class="btn btn-secondary" id="copyLink">نسخ رابط الفورم</button>
+                <button class="btn btn-secondary" id="toggleForm">تشغيل / إيقاف</button>
+              </div>
+
+              <input id="previewLink" type="text" readonly placeholder="رابط الفورم" style="margin-top:12px;width:100%;border:1px solid var(--line);border-radius:16px;padding:13px 14px" />
+            </div>
+
+            <div id="questionList"></div>
+          </div>
+
+          <div id="panel-stats" class="hidden">
+            <h2 class="section-title">الإحصائيات</h2>
+            <div class="form-grid">
+              <div class="stats-item">
+                <div class="meta">عدد الاستجابات</div>
+                <div id="statResponses" style="font-size:32px;font-weight:800;margin-top:8px">0</div>
+              </div>
+              <div class="stats-item">
+                <div class="meta">متوسط النتيجة</div>
+                <div id="statAverage" style="font-size:32px;font-weight:800;margin-top:8px">0%</div>
+              </div>
+              <div class="stats-item">
+                <div class="meta">أفضل مستوى</div>
+                <div id="statBest" style="font-size:32px;font-weight:800;margin-top:8px">—</div>
+              </div>
+              <div class="stats-item">
+                <div class="meta">أقوى ملف متكرر</div>
+                <div id="statTopFile" style="font-size:32px;font-weight:800;margin-top:8px">—</div>
+              </div>
+            </div>
+          </div>
+
+          <div id="panel-results" class="hidden">
+            <h2 class="section-title">نتائج المستخدمين</h2>
+            <p class="section-sub">يمكنك فتح كل نتيجة لمعرفة الملف الأنسب ونسبة الملاءمة.</p>
+            <div id="submissionsList"></div>
+          </div>
+
+          <div id="panel-preview" class="hidden">
+            <h2 class="section-title">معاينة صفحة المستخدمين</h2>
+            <p class="section-sub">هذه المعاينة تعرض الفورم النشط كما سيراه المستخدمون.</p>
+            <iframe id="previewFrame" class="preview-frame" title="معاينة المستخدم"></iframe>
+          </div>
+        </div>
+      </section>
+
+      <aside class="sidebar">
+        <h2>ملخص سريع</h2>
+        <p>الفورمات مستقلة، لكل فورم رابط خاص، ويمكنك تشغيله أو إيقافه، ومراجعة نتائج كل مستخدم من لوحة واحدة.</p>
+
+        <div class="stats">
+          <div class="stat">
+            <div class="k">عدد الفورمات</div>
+            <div class="v" id="sideFormCount">0</div>
+          </div>
+          <div class="stat">
+            <div class="k">الاستجابات</div>
+            <div class="v" id="sideSubCount">0</div>
+          </div>
+          <div class="stat">
+            <div class="k">القادة الجاهزون</div>
+            <div class="v" id="sideLeaders">0</div>
+          </div>
+          <div class="stat">
+            <div class="k">المتوسط</div>
+            <div class="v" id="sideAvg">0%</div>
+          </div>
+        </div>
+
+        <div class="notice">
+          <div style="font-weight:800">الرابط النشط</div>
+          <div class="meta" style="color:#cbd5e1;margin-top:6px">يمكن فتح صفحة المستخدمين الخاصة بالفورم من الرابط أدناه أو من زر المعاينة.</div>
+          <input id="sidePreviewLink" type="text" readonly style="margin-top:10px;width:100%;border:0;border-radius:14px;padding:12px 14px" />
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <div class="toast" id="toast">تم التنفيذ</div>
+
+  <script type="module" src="./js/admin.js"></script>
+</body>
+</html>
